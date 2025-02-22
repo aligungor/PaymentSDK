@@ -7,7 +7,7 @@ protocol Request: Encodable {
 
 // MARK: - Create URLRequest
 extension Request {
-    func createURLRequest() throws -> URLRequest {
+    func createURLRequest(apiKey: String) throws -> URLRequest {
         guard var url = host.url else {
             throw URLError(.badURL)
         }
@@ -17,6 +17,8 @@ extension Request {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = method.rawValue
         urlRequest.httpBody = try JSONEncoder().encode(self)
+        urlRequest.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
+        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         return urlRequest
     }

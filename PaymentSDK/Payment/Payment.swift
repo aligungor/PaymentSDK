@@ -18,25 +18,32 @@ public typealias PaymentCompletion = (PaymentResult) -> Void
 /// completion handlers, async/await, and Combine.
 /// It interacts with a `PaymentService` to handle payment processing.
 final public class Payment {
-    // MARK: Variables
+    // MARK: - Variables
+    private let apiKey: String
     private let service: PaymentService
     private let logger: PaymentLogger
 
-    // MARK: Lifecycle
-    /// Initializes a `Payment` instance with the default payment service.
-    public init() {
-        self.service = DefaultPaymentService()
+    // MARK: - Lifecycle
+    /// Initializes a `Payment` instance with the default payment service and logger.
+    /// - Parameter apiKey: The API key required for authentication.
+    public init(apiKey: String) {
+        self.apiKey = apiKey
+        self.service = DefaultPaymentService(apiKey: apiKey)
         self.logger = DefaultPaymentLogger()
     }
 
-    /// Initializes a `Payment` instance with a custom `PaymentService`.
-    /// - Parameter service: The payment service to be used.
-    init(paymentService: PaymentService, logger: PaymentLogger) {
+    /// Initializes a `Payment` instance with a custom `PaymentService` and `PaymentLogger`.
+    /// - Parameters:
+    ///   - apiKey: The API key required for authentication.
+    ///   - paymentService: The payment service to process payment requests.
+    ///   - logger: The logger used to capture payment process details.
+    init(apiKey: String, paymentService: PaymentService, logger: PaymentLogger) {
+        self.apiKey = apiKey
         self.service = paymentService
         self.logger = logger
     }
 
-    // MARK: Public
+    // MARK: - Public
 
     /// Initiates a payment request asynchronously using `async/await`.
     ///

@@ -6,14 +6,14 @@ public typealias TransactionId = String
 /// Represents the response received from the payment API.
 public struct PaymentResponse {
     
-    // MARK: Variables
+    // MARK: - Variables
     /// The status of the payment.
     public let status: PaymentStatus
     
     /// A unique identifier for tracking the transaction.
     public let transactionId: TransactionId
     
-    // MARK: Lifecycle
+    // MARK: - Lifecycle
     /// Initializes a new `PaymentResponse` instance.
     /// - Parameters:
     ///   - status: The status of the payment.

@@ -3,15 +3,17 @@ import Foundation
 // MARK: - Protocol
 protocol Network {
     func perform<T: Decodable>(
-        request: Request
+        request: Request,
+        apiKey: String
     ) async throws -> T
 }
 
 // MARK: - Class
 final class DefaultNetwork: Network {
-    // MARK: Protocol Implementation
+    // MARK: - Protocol Implementation
     func perform<T: Decodable>(
-        request: Request
+        request: Request,
+        apiKey: String
     ) async throws -> T {
         let decoder = JSONDecoder()
         
@@ -32,7 +34,7 @@ final class DefaultNetwork: Network {
         
         // Prepare URLRequest and URLSession
         let (data, response) = try await URLSession.shared.data(
-            for: request.createURLRequest()
+            for: request.createURLRequest(apiKey: apiKey)
         )
 
         // Ensure the response is valid HTTP response with status code 200-299
