@@ -89,6 +89,19 @@ final public class Payment {
     ///   - completion: A closure that is called with the result of the payment operation.
     ///
     /// - Note: This method runs in a background task and does not guarantee execution on the main thread.
+    ///
+    /// - Example:
+    /// ```swift
+    /// let payment = Payment()
+    /// payment.make(config: myConfig) { result in
+    ///     switch result {
+    ///     case .success(let response):
+    ///         print("Payment successful: \(response)")
+    ///     case .failure(let error):
+    ///         print("Payment failed: \(error.localizedDescription)")
+    ///     }
+    /// }
+    /// ```
     public func make(config: PaymentConfig, completion: @escaping PaymentCompletion) {
         Task {
             do {
@@ -107,7 +120,7 @@ final public class Payment {
     ///
     /// - Example:
     /// ```swift
-    /// let cancellable = payment.makePublisher(config: myConfig)
+    /// let cancellable = payment.make(config: myConfig)
     ///     .sink(receiveCompletion: { completion in
     ///         switch completion {
     ///         case .finished:
