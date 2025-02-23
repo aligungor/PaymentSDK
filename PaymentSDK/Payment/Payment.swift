@@ -7,11 +7,9 @@ import Combine
 public typealias PaymentResult = Result<PaymentResponse, Error>
 
 /// A completion handler type used for payment operations.
-/// - Parameter result: The result of the payment operation, containing either a successful response or an error.
 public typealias PaymentCompletion = (PaymentResult) -> Void
 
 // MARK: - Class
-
 /// Handles payment transactions using different asynchronous strategies.
 ///
 /// The `Payment` class provides methods to process payments via
@@ -19,17 +17,18 @@ public typealias PaymentCompletion = (PaymentResult) -> Void
 /// It interacts with a `PaymentService` to handle payment processing.
 final public class Payment {
     // MARK: - Variables
-    private let apiKey: String
     private let service: PaymentService
     private let logger: PaymentLogger
+    private let keychainStorage: KeychainStorage
 
     // MARK: - Lifecycle
     /// Initializes a `Payment` instance with the default payment service and logger.
     /// - Parameter apiKey: The API key required for authentication.
     public init(apiKey: String) {
-        self.apiKey = apiKey
-        self.service = DefaultPaymentService(apiKey: apiKey)
+        self.service = DefaultPaymentService()
         self.logger = DefaultPaymentLogger()
+        self.keychainStorage = DefaultKeychainStorage()
+        keychainStorage.saveAPIKey(apiKey)
     }
 
     /// Initializes a `Payment` instance with a custom `PaymentService` and `PaymentLogger`.
@@ -37,25 +36,36 @@ final public class Payment {
     ///   - apiKey: The API key required for authentication.
     ///   - paymentService: The payment service to process payment requests.
     ///   - logger: The logger used to capture payment process details.
-    init(apiKey: String, paymentService: PaymentService, logger: PaymentLogger) {
-        self.apiKey = apiKey
+    ///   - keychainStorage: A custom `KeychainStorage` implementation, useful for testing.
+    init(
+        apiKey: String,
+        paymentService: PaymentService,
+        logger: PaymentLogger,
+        keychainStorage: KeychainStorage
+    ) {
         self.service = paymentService
         self.logger = logger
+        self.keychainStorage = keychainStorage
+        keychainStorage.saveAPIKey(apiKey)
     }
 
     // MARK: - Public
-
     /// Initiates a payment request asynchronously using `async/await`.
     ///
     /// - Parameter config: The payment configuration containing settings such as retry count.
     /// - Returns: A `PaymentResponse` if the payment is successful.
-    /// - Throws: An error if the payment fails after all retry attempts.
+    /// - Throws: An error if the payment fails.
     ///
     /// - Example:
     /// ```swift
     /// let response = try await payment.make(config: myConfig)
     /// ```
     public func make(config: PaymentConfig) async throws -> PaymentResponse {
+        guard let apiKey = keychainStorage.loadAPIKey(), !apiKey.isEmpty else {
+            logger.log(.error, "❌ API Key is missing. Please initialize a new Payment instance.")
+            throw PaymentError.missingAPIKey
+        }
+        
         logger.log(.info, "💸 Payment process started for amount: \(config.amount)")
         
         let request = PaymentRequest(config: config)
@@ -78,7 +88,7 @@ final public class Payment {
             }
         }
 
-        logger.log(.error, "❌ Payment failed after \(totalAttempts) attempts with error: \(lastError?.localizedDescription ?? "Unknown error")")
+        logger.log(.error, "❌ Payment failed after \(totalAttempts) attempts. Error: \(lastError?.localizedDescription ?? "Unknown error")")
         throw lastError ?? PaymentError.requestFailed
     }
     
@@ -145,5 +155,21 @@ final public class Payment {
             }
         }
         .eraseToAnyPublisher()
+    }
+    
+    /// Clears the stored API Key from Keychain.
+    /// ⚠️ If you call this method, you must initialize a new `Payment` instance before making requests.
+    ///
+    /// This method removes the API Key from Keychain. If a `Payment` instance is created
+    /// after calling this method, a new API Key must be provided.
+    ///
+    /// - Example:
+    /// ```swift
+    /// let payment = Payment(apiKey: "your-api-key")
+    /// payment.clearAPIKey()
+    /// ```
+    public func clearAPIKey() {
+        keychainStorage.deleteAPIKey()
+        logger.log(.info, "⚠️ API Key has been cleared. You must initialize a new Payment instance before making requests.")
     }
 }

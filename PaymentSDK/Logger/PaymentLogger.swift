@@ -10,14 +10,23 @@ protocol PaymentLogger {
     func log(_ level: LogLevel, _ message: String)
 }
 
-// MARK: - Default Implementation
+// MARK: - Class
 final class DefaultPaymentLogger: PaymentLogger {
+    // MARK: - Constants
+    private enum Constants {
+        static let subsystem = "com.aligungor.PaymentSDK"
+        static let category = "Payment"
+    }
+    
+    // MARK: - Variables
     private let logger: Logger
 
-    init(logger: Logger = Logger(subsystem: "com.aligungor.PaymentSDK", category: "Payment")) {
+    // MARK: - Lifecycle
+    init(logger: Logger = Logger(subsystem: Constants.subsystem, category: Constants.category)) {
         self.logger = logger
     }
 
+    // MARK: - Protocol Implementation
     /// Logs a message with an appropriate privacy level based on its severity.
     ///
     /// - `.info` logs are **public**, meaning they are visible to both SDK users and system logs.

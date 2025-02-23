@@ -1,11 +1,9 @@
 // MARK: - Enum
 public enum PaymentError: Error {
+    case missingAPIKey
     case requestFailed
-    case invalidResponse
+    case invalidResponse(Error?)
     case networkError(Error)
-    case timeout
-    case authenticationFailed
-    case insufficientFunds
     case serverError(statusCode: Int)
     case unknown
 }
@@ -16,20 +14,20 @@ extension PaymentError: LocalizedError {
         switch self {
         case .requestFailed:
             return "The payment request failed. Please try again."
-        case .invalidResponse:
-            return "The server response was invalid."
+        case .missingAPIKey:
+            return "Missing API key. Please set your API key before making a request."
+        case .invalidResponse(let error):
+            if let error = error {
+                return "The server response was invalid. Details: \(error.localizedDescription)"
+            } else {
+                return "The server response was invalid."
+            }
         case .networkError(let error):
-            return "Network error: \(error.localizedDescription)"
-        case .timeout:
-            return "The payment request timed out."
-        case .authenticationFailed:
-            return "Authentication failed. Please check your credentials."
-        case .insufficientFunds:
-            return "Insufficient funds in your account."
+            return "A network error occurred: \(error.localizedDescription). Please check your connection."
         case .serverError(let statusCode):
-            return "Server returned an error with status code \(statusCode)."
+            return "Server error occurred with status code \(statusCode). Please try again later."
         case .unknown:
-            return "An unknown error occurred."
+            return "An unknown error occurred. Please contact support."
         }
     }
 }
