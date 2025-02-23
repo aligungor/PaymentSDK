@@ -1,3 +1,5 @@
+import Foundation
+
 // MARK: - Enum
 public enum PaymentError: Error {
     case missingAPIKey

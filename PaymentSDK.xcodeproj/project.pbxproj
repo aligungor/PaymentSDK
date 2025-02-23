@@ -23,30 +23,49 @@
 /* Begin PBXFileReference section */
 		F963E9862D68A90800FAD075 /* PaymentSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PaymentSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F963E98E2D68A90900FAD075 /* PaymentSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PaymentSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9FB4C692D6B98D400B3254D /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		F963E9962D68A90900FAD075 /* Exceptions for "PaymentSDK" folder in "PaymentSDK" target */ = {
+		F9FB4CE22D6B9CCF00B3254D /* Exceptions for "Sources" folder in "PaymentSDK" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			publicHeaders = (
 				PaymentSDK.h,
 			);
 			target = F963E9852D68A90800FAD075 /* PaymentSDK */;
 		};
+		F9FB4CE52D6B9D2300B3254D /* Exceptions for "Tests" folder in "PaymentSDK" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				PaymentSDKTests.swift,
+			);
+			target = F963E9852D68A90800FAD075 /* PaymentSDK */;
+		};
+		F9FB4CE62D6B9D2300B3254D /* Exceptions for "Tests" folder in "PaymentSDKTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				PaymentSDKTests.swift,
+			);
+			target = F963E98D2D68A90900FAD075 /* PaymentSDKTests */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		F963E9882D68A90800FAD075 /* PaymentSDK */ = {
+		F9FB4CE12D6B9CC400B3254D /* Sources */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				F963E9962D68A90900FAD075 /* Exceptions for "PaymentSDK" folder in "PaymentSDK" target */,
+				F9FB4CE22D6B9CCF00B3254D /* Exceptions for "Sources" folder in "PaymentSDK" target */,
 			);
-			path = PaymentSDK;
+			path = Sources;
 			sourceTree = "<group>";
 		};
-		F963E9922D68A90900FAD075 /* PaymentSDKTests */ = {
+		F9FB4CE42D6B9D1900B3254D /* Tests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = PaymentSDKTests;
+			exceptions = (
+				F9FB4CE52D6B9D2300B3254D /* Exceptions for "Tests" folder in "PaymentSDK" target */,
+				F9FB4CE62D6B9D2300B3254D /* Exceptions for "Tests" folder in "PaymentSDKTests" target */,
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -73,8 +92,9 @@
 		F963E97C2D68A90800FAD075 = {
 			isa = PBXGroup;
 			children = (
-				F963E9882D68A90800FAD075 /* PaymentSDK */,
-				F963E9922D68A90900FAD075 /* PaymentSDKTests */,
+				F9FB4C692D6B98D400B3254D /* Package.swift */,
+				F9FB4CE12D6B9CC400B3254D /* Sources */,
+				F9FB4CE42D6B9D1900B3254D /* Tests */,
 				F963E9872D68A90800FAD075 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -115,7 +135,8 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				F963E9882D68A90800FAD075 /* PaymentSDK */,
+				F9FB4CE12D6B9CC400B3254D /* Sources */,
+				F9FB4CE42D6B9D1900B3254D /* Tests */,
 			);
 			name = PaymentSDK;
 			packageProductDependencies = (
@@ -136,9 +157,6 @@
 			);
 			dependencies = (
 				F963E9912D68A90900FAD075 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				F963E9922D68A90900FAD075 /* PaymentSDKTests */,
 			);
 			name = PaymentSDKTests;
 			packageProductDependencies = (
@@ -253,7 +271,12 @@
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				PRODUCT_BUNDLE_IDENTIFIER = aligungor.PaymentSDK;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				REGISTER_APP_GROUPS = NO;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_VERSION = 5.0;
@@ -286,7 +309,12 @@
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				PRODUCT_BUNDLE_IDENTIFIER = aligungor.PaymentSDK;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				REGISTER_APP_GROUPS = NO;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_VERSION = 5.0;
@@ -426,9 +454,14 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6RH982A9JD;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = aligungor.PaymentSDKTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -442,9 +475,14 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6RH982A9JD;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = aligungor.PaymentSDKTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

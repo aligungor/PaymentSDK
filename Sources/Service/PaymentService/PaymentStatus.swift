@@ -1,3 +1,5 @@
+import Foundation
+
 // MARK: - Enum
 /// Represents the possible statuses of a payment transaction.
 public enum PaymentStatus: String {

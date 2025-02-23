@@ -1,3 +1,5 @@
+import Foundation
+
 // MARK: - Protocol
 protocol PaymentService {
     func makePayment(request: PaymentRequest) async throws -> PaymentResponse

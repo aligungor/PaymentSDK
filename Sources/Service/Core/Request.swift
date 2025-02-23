@@ -1,3 +1,5 @@
+import Foundation
+
 // MARK: - Protocol
 protocol Request: Encodable {
     var host: Host { get }

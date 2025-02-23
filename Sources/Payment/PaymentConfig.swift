@@ -1,3 +1,5 @@
+import Foundation
+
 /// A configuration model for payment transactions.
 ///
 /// This struct holds the necessary parameters to configure a payment request,
