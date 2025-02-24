@@ -6,7 +6,6 @@ PaymentSDK is a modular and secure Swift framework designed to facilitate API-ba
 
 - **Secure API Key Management**: Stores API keys securely using Keychain.
 - **Flexible Asynchronous Payment Processing**: Supports `async/await`, completion handlers, and Combine.
-- **Modular and Scalable Architecture**: Well-structured components including `Payment`, `Service`, `Core`, `Logger`, and `Persistence`.
 - **Comprehensive Logging System**: Logs payment process details for debugging and monitoring.
 - **Configurable Retry Mechanism**: Ensures reliable transaction execution with customizable retry attempts.
 - **Unit Test Coverage**: Includes mock services and structured test cases.
