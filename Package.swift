@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
     name: "PaymentSDK",
     platforms: [
-        .iOS(.v14),
+        .iOS(.v16),
         .macOS(.v13)
     ],
     products: [
