@@ -1,3 +1,5 @@
+import Foundation
+
 // MARK: -  Struct
 struct PaymentRequest {
     let amount: Decimal

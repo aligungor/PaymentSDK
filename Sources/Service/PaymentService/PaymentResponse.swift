@@ -1,3 +1,5 @@
+import Foundation
+
 // MARK: - Typealiases
 /// A unique identifier for a payment transaction.
 public typealias TransactionId = String
