@@ -53,6 +53,7 @@ struct ContentView: View {
     }
 
     private func processPayment() {
+        updatePaymentStatus("")
         guard let amount = Decimal(string: amount) else {
             return
         }
