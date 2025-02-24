@@ -37,14 +37,24 @@
 		F9FB4CE52D6B9D2300B3254D /* Exceptions for "Tests" folder in "PaymentSDK" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				PaymentSDKTests.swift,
+				Mock/MockKeychainStorage.swift,
+				Mock/MockNetwork.swift,
+				Mock/MockPaymentLogger.swift,
+				Mock/MockPaymentService.swift,
+				PaymentServiceTests.swift,
+				PaymentTests.swift,
 			);
 			target = F963E9852D68A90800FAD075 /* PaymentSDK */;
 		};
 		F9FB4CE62D6B9D2300B3254D /* Exceptions for "Tests" folder in "PaymentSDKTests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				PaymentSDKTests.swift,
+				Mock/MockKeychainStorage.swift,
+				Mock/MockNetwork.swift,
+				Mock/MockPaymentLogger.swift,
+				Mock/MockPaymentService.swift,
+				PaymentServiceTests.swift,
+				PaymentTests.swift,
 			);
 			target = F963E98D2D68A90900FAD075 /* PaymentSDKTests */;
 		};
