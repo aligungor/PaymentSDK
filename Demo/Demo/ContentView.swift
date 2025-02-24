@@ -32,13 +32,13 @@ struct ContentView: View {
                     Text("Pay")
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(Color.green)
+                        .background(Color.primary)
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }
 
                 Text(paymentStatus)
-                    .foregroundColor(.gray)
+                    .foregroundColor(.black)
                     .multilineTextAlignment(.center)
                     .lineLimit(nil)
                     .fixedSize(horizontal: false, vertical: true)
@@ -48,6 +48,7 @@ struct ContentView: View {
             }
             .padding()
             .navigationTitle("PaymentSDK Demo")
+            .background(.mint)
         }
     }
 
