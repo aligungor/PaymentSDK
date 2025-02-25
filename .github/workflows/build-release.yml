@@ -14,14 +14,17 @@ on:
 jobs:
   build:
     name: Build XCFramework
-    runs-on: macos-latest # En güncel macOS kullanılıyor
+    runs-on: macos-latest # Güncel macOS kullanılıyor
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Select Latest Xcode Version
-        run: sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
+      - name: List Available Xcode Versions
+        run: ls /Applications | grep Xcode
+
+      - name: Select Xcode 16.2
+        run: sudo xcode-select -switch /Applications/Xcode_16.2.app/Contents/Developer
 
       - name: Build for iOS (Device)
         run: |
