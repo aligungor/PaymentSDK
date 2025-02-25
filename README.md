@@ -104,7 +104,7 @@ For a complete example, refer to the `Demo` directory in the repository, which i
 
 ## Building with GitHub Actions
 
-PaymentSDK is continuously built and tested using GitHub Actions. The provided workflow automates the process of building an `XCFramework`, which can be used in your project.
+PaymentSDK is continuously built using GitHub Actions. The provided workflow automates the process of building an `XCFramework`, which can be used in your project.
 
 ### **How to Build the XCFramework Using GitHub Actions**
 1. Go to the **"Actions"** tab in your GitHub repository.
