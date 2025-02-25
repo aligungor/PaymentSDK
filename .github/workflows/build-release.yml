@@ -1,0 +1,78 @@
+name: Build and Release PaymentSDK XCFramework
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+  release:
+    types: [created]
+
+jobs:
+  build:
+    name: Build XCFramework
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set Up Xcode
+        run: sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
+
+      - name: Build for iOS (Device)
+        run: |
+          xcodebuild archive \
+            -scheme PaymentSDK \
+            -destination "generic/platform=iOS" \
+            -archivePath build/PaymentSDK.framework-iphoneos \
+            SKIP_INSTALL=NO BUILD_LIBRARY_FOR_DISTRIBUTION=YES
+
+      - name: Build for iOS Simulator
+        run: |
+          xcodebuild archive \
+            -scheme PaymentSDK \
+            -destination "generic/platform=iOS Simulator" \
+            -archivePath build/PaymentSDK.framework-iphonesimulator \
+            SKIP_INSTALL=NO BUILD_LIBRARY_FOR_DISTRIBUTION=YES
+
+      - name: Create XCFramework
+        run: |
+          xcodebuild -create-xcframework \
+            -framework build/PaymentSDK.framework-iphoneos.xcarchive/Products/Library/Frameworks/PaymentSDK.framework \
+            -framework build/PaymentSDK.framework-iphonesimulator.xcarchive/Products/Library/Frameworks/PaymentSDK.framework \
+            -output PaymentSDK.xcframework
+
+      - name: Compress XCFramework
+        run: zip -r PaymentSDK.xcframework.zip PaymentSDK.xcframework
+
+      - name: Upload XCFramework as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: PaymentSDK-XCFramework
+          path: PaymentSDK.xcframework.zip
+
+  release:
+    name: Create GitHub Release
+    runs-on: macos-latest
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/')
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Download XCFramework Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: PaymentSDK-XCFramework
+          path: .
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: PaymentSDK.xcframework.zip
+          token: ${{ secrets.GITHUB_TOKEN }}
