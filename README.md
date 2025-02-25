@@ -16,7 +16,7 @@ PaymentSDK is a modular and secure Swift framework designed to facilitate API-ba
 ## Requirements
 
 - **iOS**: Version 16.0 or later
-- **Xcode**: Version 16.0 or later
+- **Xcode**: Version 16.2 or later
 - **Swift**: Version 5.9 or later
 
 ## Installation
@@ -101,6 +101,31 @@ For a complete example, refer to the `Demo` directory in the repository, which i
 - Mock services are included in `Tests/Mock` for unit testing.
 - Structured unit tests ensure reliable payment processing and API key handling.
 - Customizable mock responses simulate different API behaviors.
+
+## Building with GitHub Actions
+
+PaymentSDK is continuously built and tested using GitHub Actions. The provided workflow automates the process of building an `XCFramework`, which can be used in your project.
+
+### **How to Build the XCFramework Using GitHub Actions**
+1. Go to the **"Actions"** tab in your GitHub repository.
+2. Select the **"Build and Release PaymentSDK XCFramework"** workflow.
+3. Click **"Run workflow"** to start the build process.
+4. Once the build completes, download the generated `PaymentSDK.xcframework.zip` from the workflow artifacts.
+5. Extract the zip file and add `PaymentSDK.xcframework` to your Xcode project.
+
+### **Using the XCFramework**
+After downloading and extracting `PaymentSDK.xcframework`, follow these steps to integrate it into your Xcode project:
+1. Drag and drop the extracted `PaymentSDK.xcframework` into your Xcode project's **Frameworks, Libraries, and Embedded Content** section.
+2. In the **General** tab of your project settings, ensure that `PaymentSDK.xcframework` is set to **"Embed & Sign"**.
+3. Import the SDK into your Swift files:
+
+```swift
+import PaymentSDK
+
+let payment = Payment(apiKey: "your_api_key")
+```
+
+Your project is now ready to use PaymentSDK! 🚀
 
 ## Deliverables
 
