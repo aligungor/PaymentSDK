@@ -14,7 +14,7 @@ on:
 jobs:
   build:
     name: Build XCFramework
-    runs-on: macos-latest # Güncel macOS kullanılıyor
+    runs-on: macos-latest
 
     steps:
       - name: Checkout Repository
